@@ -7,14 +7,17 @@ A lightweight macOS menu bar app that shows real-time network upload/download sp
 ↓ 3.87 MB/s
 ```
 
-## Requirements
-
-- macOS 13.0 Ventura or later
-- Xcode 15+
-- Swift 5.9+
-- No third-party dependencies
-
 ## Installation
+
+### Direct download
+
+Download the latest `NetworkSpeedBar.zip` from the [Releases](https://github.com/eiis/NetworkSpeedBar/releases/latest) page, unzip it, and move `NetworkSpeedBar.app` to your `/Applications` folder.
+
+### Homebrew
+
+```bash
+brew install --cask eiis/tap/networkspeedbar
+```
 
 ### Build from source
 
@@ -24,13 +27,12 @@ cd NetworkSpeedBar
 open NetworkSpeedBar.xcodeproj
 ```
 
-In Xcode:
+In Xcode, select the `NetworkSpeedBar` target, go to **Signing & Capabilities**, choose your Apple ID team, then press `⌘R`.
 
-1. Select the `NetworkSpeedBar` target
-2. Go to **Signing & Capabilities**, choose your Apple ID team (a free account works)
-3. Press `⌘R` to build and run
+## Requirements
 
-The app will appear in your menu bar immediately. Since it has no Dock icon (`LSUIElement = YES`), it only lives in the menu bar.
+- macOS 13.0 Ventura or later
+- Xcode 15+ / Swift 5.9+ (build from source only)
 
 ## Usage
 
@@ -45,7 +47,7 @@ The status item shows two rows of text in a monospaced font:
 
 All active network interfaces are included (Wi-Fi, Ethernet, VPN, etc.). Loopback (`lo0`) is excluded.
 
-### Clicking the menu bar item
+### Menu
 
 Click the speed display to open the menu:
 
@@ -63,42 +65,38 @@ Click the speed display to open the menu:
 Open **偏好设置...** from the menu to adjust:
 
 | Setting | Options | Default |
-|---------|---------|---------|
+|---------|---------|---------| 
 | 刷新间隔 (Refresh interval) | 0.5s / 1s / 2s | 1s |
 | 显示单位 (Speed unit) | Auto / Fixed KB/s / Fixed MB/s | Auto |
 
-Settings are saved automatically to `UserDefaults` and persist across launches.
+Settings are saved to `UserDefaults` and persist across launches.
 
-**Auto unit** selects the most readable unit:
-- `B/s` — under 1 KB/s
-- `KB/s` — under 1 MB/s
-- `MB/s` — under 1 GB/s
-- `GB/s` — 1 GB/s and above
+**Auto unit** selects the most readable unit: `B/s` → `KB/s` → `MB/s` → `GB/s`.
+
+## How It Works
+
+Every tick, `NetworkMonitor` calls `getifaddrs` to read cumulative byte counters (`ifi_ibytes` / `ifi_obytes`) from all active, non-loopback link-layer interfaces. The delta from the previous snapshot divided by elapsed time gives bytes/second. Session totals are tracked separately for the menu display.
 
 ## Project Structure
 
 ```
 NetworkSpeedBar/
-├── AppDelegate.swift                   # App entry, bootstraps StatusBarController
-├── NetworkSpeedBarApp.swift            # @main
+├── AppDelegate.swift
+├── NetworkSpeedBarApp.swift
 ├── Core/
 │   ├── NetworkMonitor.swift            # getifaddrs sampling, speed delta calculation
 │   └── SpeedFormatter.swift           # Byte/speed formatting
 ├── Model/
 │   ├── SpeedSnapshot.swift            # Snapshot struct for delta calculation
-│   └── AppSettings.swift              # ObservableObject settings + UserDefaults persistence
+│   └── AppSettings.swift              # Settings + UserDefaults persistence
 ├── MenuBar/
 │   └── StatusBarController.swift      # NSStatusItem, menu, Combine bindings
 ├── Settings/
-│   ├── PreferencesView.swift          # SwiftUI preferences UI
+│   ├── PreferencesView.swift
 │   └── PreferencesWindowController.swift
 └── Resources/
-    └── Info.plist                     # LSUIElement = YES
+    └── Info.plist                     # LSUIElement = YES (no Dock icon)
 ```
-
-## How It Works
-
-Every tick, `NetworkMonitor` calls `getifaddrs` to read cumulative byte counters (`ifi_ibytes` / `ifi_obytes`) from all active, non-loopback link-layer interfaces. The delta from the previous snapshot divided by the elapsed time gives bytes/second. Accumulated totals are tracked separately for the session traffic display.
 
 ## Roadmap
 
@@ -106,7 +104,6 @@ Every tick, `NetworkMonitor` calls `getifaddrs` to read cumulative byte counters
 - [ ] Per-process traffic breakdown (requires Network Extension)
 - [ ] Monthly data cap alerts
 - [ ] Launch at login
-- [ ] Homebrew Cask
 
 ## License
 
