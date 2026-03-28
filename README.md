@@ -1,5 +1,7 @@
 # NetworkSpeedBar
 
+[中文](./README.zh.md)
+
 A lightweight macOS menu bar app that shows real-time network upload/download speed. No Dock icon, no windows — lives entirely in the menu bar.
 
 ```
@@ -53,21 +55,21 @@ Click the speed display to open the menu:
 
 | Item | Description |
 |------|-------------|
-| 本次上传 / 本次下载 | Session traffic totals since last reset |
-| 刷新间隔 | Current refresh interval |
-| 显示单位 | Current speed unit setting |
-| 重置统计 (`R`) | Reset session upload/download counters |
-| 偏好设置... (`,`) | Open preferences window |
-| 退出 (`Q`) | Quit the app |
+| Session Upload / Download | Traffic totals since last reset |
+| Refresh Interval | Current refresh interval |
+| Speed Unit | Current speed unit setting |
+| Reset Statistics (`R`) | Reset session upload/download counters |
+| Preferences... (`,`) | Open preferences window |
+| Quit (`Q`) | Quit the app |
 
 ### Preferences
 
-Open **偏好设置...** from the menu to adjust:
+Open **Preferences...** from the menu to adjust:
 
 | Setting | Options | Default |
-|---------|---------|---------| 
-| 刷新间隔 (Refresh interval) | 0.5s / 1s / 2s | 1s |
-| 显示单位 (Speed unit) | Auto / Fixed KB/s / Fixed MB/s | Auto |
+|---------|---------|---------|
+| Refresh interval | 0.5s / 1s / 2s | 1s |
+| Speed unit | Auto / Fixed KB/s / Fixed MB/s | Auto |
 
 Settings are saved to `UserDefaults` and persist across launches.
 
