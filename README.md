@@ -1,13 +1,22 @@
 # NetworkSpeedBar
 
-[中文](./README.zh.md)
+<p align="center">
+  <a href="https://github.com/eiis/NetworkSpeedBar/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+  <a href="https://swift.org"><img src="https://img.shields.io/badge/Swift-5.9+-orange.svg" alt="Swift 5.9+"></a>
+  <a href="https://www.apple.com/macos/ventura/"><img src="https://img.shields.io/badge/macOS-13.0+-blue.svg" alt="macOS 13.0+"></a>
+  <a href="https://github.com/eiis/NetworkSpeedBar/releases/latest"><img src="https://img.shields.io/github/v/release/eiis/NetworkSpeedBar" alt="Latest Release"></a>
+  <a href="https://github.com/eiis/NetworkSpeedBar/releases/latest"><img src="https://img.shields.io/github/downloads/eiis/NetworkSpeedBar/total" alt="Downloads"></a>
+</p>
 
-A lightweight macOS menu bar app that shows real-time network upload/download speed. No Dock icon, no windows — lives entirely in the menu bar.
+<p align="center">📶 Lightweight macOS menu bar network speed monitor, no Dock icon, no windows</p>
 
-```
-↑ 1.24 MB/s
-↓ 3.87 MB/s
-```
+<p align="center">
+  <a href="./README.zh.md">中文</a> ·
+  <a href="https://github.com/eiis/NetworkSpeedBar/releases/latest">Download</a> ·
+  <a href="https://github.com/eiis/NetworkSpeedBar/issues">Feedback</a>
+</p>
+
+---
 
 ## Installation
 
