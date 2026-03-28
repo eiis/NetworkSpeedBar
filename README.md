@@ -18,9 +18,20 @@
 
 ---
 
-## Installation
+## ✨ Features
 
-### Direct download
+- **Real-time speed** — Upload and download rates updated every second
+- **Always visible** — Lives in the menu bar, no Dock icon, no windows
+- **Smart units** — Auto-selects the most readable unit: `B/s` → `KB/s` → `MB/s` → `GB/s`
+- **All interfaces** — Covers Wi-Fi, Ethernet, VPN and more simultaneously
+- **Session stats** — Tracks cumulative upload/download since last reset
+- **Lightweight** — CPU < 0.5%, Memory < 10 MB, zero dependencies
+
+---
+
+## 📦 Installation
+
+### Direct Download
 
 Download the latest `NetworkSpeedBar.zip` from the [Releases](https://github.com/eiis/NetworkSpeedBar/releases/latest) page, unzip it, and move `NetworkSpeedBar.app` to your `/Applications` folder.
 
@@ -30,7 +41,7 @@ Download the latest `NetworkSpeedBar.zip` from the [Releases](https://github.com
 brew install --cask eiis/tap/networkspeedbar
 ```
 
-### Build from source
+### Build from Source
 
 ```bash
 git clone https://github.com/eiis/NetworkSpeedBar.git
@@ -38,57 +49,54 @@ cd NetworkSpeedBar
 open NetworkSpeedBar.xcodeproj
 ```
 
-In Xcode, select the `NetworkSpeedBar` target, go to **Signing & Capabilities**, choose your Apple ID team, then press `⌘R`.
+In Xcode, select the `NetworkSpeedBar` target → **Signing & Capabilities** → choose your Apple ID team → press `⌘R`.
 
-## Requirements
+> **Requirements:** macOS 13.0 Ventura or later. Xcode 15+ / Swift 5.9+ required only for building from source.
 
-- macOS 13.0 Ventura or later
-- Xcode 15+ / Swift 5.9+ (build from source only)
+---
 
-## Usage
+## 🖥 Usage
 
-### Menu bar display
+### Menu Bar Display
 
-The status item shows two rows of text in a monospaced font:
+The status item shows two rows in a monospaced font:
 
 ```
-↑ 1.24 MB/s   ← upload speed
-↓ 3.87 MB/s   ← download speed
+↑ 1.24 MB/s
+↓ 3.87 MB/s
 ```
-
-All active network interfaces are included (Wi-Fi, Ethernet, VPN, etc.). Loopback (`lo0`) is excluded.
 
 ### Menu
 
-Click the speed display to open the menu:
+Click the speed display to open the dropdown:
 
 | Item | Description |
 |------|-------------|
-| Session Upload / Download | Traffic totals since last reset |
-| Refresh Interval | Current refresh interval |
-| Speed Unit | Current speed unit setting |
-| Reset Statistics (`R`) | Reset session upload/download counters |
-| Preferences... (`,`) | Open preferences window |
-| Quit (`Q`) | Quit the app |
+| Session Upload / Download | Cumulative traffic since last reset |
+| Refresh Interval | Current sampling frequency |
+| Speed Unit | Current unit preference |
+| Reset Statistics `R` | Clear session counters |
+| Preferences... `,` | Open the preferences window |
+| Quit `Q` | Quit the app |
 
 ### Preferences
-
-Open **Preferences...** from the menu to adjust:
 
 | Setting | Options | Default |
 |---------|---------|---------|
 | Refresh interval | 0.5s / 1s / 2s | 1s |
 | Speed unit | Auto / Fixed KB/s / Fixed MB/s | Auto |
 
-Settings are saved to `UserDefaults` and persist across launches.
+Settings persist across launches via `UserDefaults`.
 
-**Auto unit** selects the most readable unit: `B/s` → `KB/s` → `MB/s` → `GB/s`.
+---
 
-## How It Works
+## ⚙️ How It Works
 
-Every tick, `NetworkMonitor` calls `getifaddrs` to read cumulative byte counters (`ifi_ibytes` / `ifi_obytes`) from all active, non-loopback link-layer interfaces. The delta from the previous snapshot divided by elapsed time gives bytes/second. Session totals are tracked separately for the menu display.
+Every tick, `NetworkMonitor` calls `getifaddrs` to read cumulative byte counters (`ifi_ibytes` / `ifi_obytes`) from all active, non-loopback link-layer interfaces. The delta from the previous snapshot divided by elapsed time gives the current speed in bytes/second. Session totals are tracked separately for the menu display.
 
-## Project Structure
+---
+
+## 📁 Project Structure
 
 ```
 NetworkSpeedBar/
@@ -109,13 +117,17 @@ NetworkSpeedBar/
     └── Info.plist                     # LSUIElement = YES (no Dock icon)
 ```
 
-## Roadmap
+---
+
+## 🗺 Roadmap
 
 - [ ] 60-second sparkline chart in the popover
 - [ ] Per-process traffic breakdown (requires Network Extension)
 - [ ] Monthly data cap alerts
 - [ ] Launch at login
 
-## License
+---
 
-MIT
+## 📄 License
+
+[MIT](./LICENSE) © 2026 eiis
