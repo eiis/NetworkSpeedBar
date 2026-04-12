@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A2B3C4D5E6F7A8B9C0D1E2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6A7B8C9D0E1F2 /* Assets.xcassets */; };
 		19DE2CC0658C998EB7F171F0 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48521BC81623BD01C0FB63BD /* AppSettings.swift */; };
 		4BF76B538909E7526C3A6C26 /* SpeedSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E1DAF5EED8688C37841993 /* SpeedSnapshot.swift */; };
 		59295ACF1088235BFCC42C10 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F7336075B3F4F5D7D1B442 /* PreferencesView.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A1B2C3D4E5F6A7B8C9D0E1F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		48521BC81623BD01C0FB63BD /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		57F7336075B3F4F5D7D1B442 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		6BDFEE9D6FDFFD86C73B7927 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
@@ -65,9 +67,18 @@
 				355C0EEEF0B26F7EB8CBE785 /* Core */,
 				11AFA9CA40796C810F828B7B /* MenuBar */,
 				84CBEDFD88F188DB6A5F5B30 /* Model */,
+				B2C3D4E5F6A7B8C9D0E1F2A3 /* Resources */,
 				AD581F961FB5195B309D9B61 /* Settings */,
 			);
 			path = NetworkSpeedBar;
+			sourceTree = "<group>";
+		};
+		B2C3D4E5F6A7B8C9D0E1F2A3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A1B2C3D4E5F6A7B8C9D0E1F2 /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		84CBEDFD88F188DB6A5F5B30 /* Model */ = {
@@ -104,6 +115,7 @@
 			buildConfigurationList = 25F01D1D8720537FD7F56D40 /* Build configuration list for PBXNativeTarget "NetworkSpeedBar" */;
 			buildPhases = (
 				49376E22660ED82634F86E47 /* Sources */,
+				C3D4E5F6A7B8C9D0E1F2A3B4 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -148,6 +160,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C3D4E5F6A7B8C9D0E1F2A3B4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A2B3C4D5E6F7A8B9C0D1E2F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		49376E22660ED82634F86E47 /* Sources */ = {
