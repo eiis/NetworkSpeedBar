@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1A2B3C4D5E6F7A8B9C0D1E2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6A7B8C9D0E1F2 /* Assets.xcassets */; };
+		D4E5F6A7B8C9D0E1F2A3B4C5 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = E5F6A7B8C9D0E1F2A3B4C5D6 /* AppIcon.icns */; };
 		19DE2CC0658C998EB7F171F0 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48521BC81623BD01C0FB63BD /* AppSettings.swift */; };
 		4BF76B538909E7526C3A6C26 /* SpeedSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E1DAF5EED8688C37841993 /* SpeedSnapshot.swift */; };
 		59295ACF1088235BFCC42C10 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F7336075B3F4F5D7D1B442 /* PreferencesView.swift */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		A1B2C3D4E5F6A7B8C9D0E1F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E5F6A7B8C9D0E1F2A3B4C5D6 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
 		48521BC81623BD01C0FB63BD /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		57F7336075B3F4F5D7D1B442 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		6BDFEE9D6FDFFD86C73B7927 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				A1B2C3D4E5F6A7B8C9D0E1F2 /* Assets.xcassets */,
+				E5F6A7B8C9D0E1F2A3B4C5D6 /* AppIcon.icns */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A2B3C4D5E6F7A8B9C0D1E2F /* Assets.xcassets in Resources */,
+				D4E5F6A7B8C9D0E1F2A3B4C5 /* AppIcon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
