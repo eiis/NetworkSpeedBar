@@ -1,5 +1,6 @@
 import AppKit
 import Combine
+import ServiceManagement
 
 final class StatusBarController: NSObject {
     private let statusItem: NSStatusItem
@@ -141,8 +142,8 @@ final class StatusBarController: NSObject {
         statusItem.length = max(ceil(speedStackView.fittingSize.width) + 12, 44)
     }
 
-    private func rebuildMenu() {
-        let menu = NSMenu()
+    private func rebuildMenu(_ menu: NSMenu) {
+        menu.removeAllItems()
 
         let uploadItem = NSMenuItem(title: "本次上传: \(SpeedFormatter.formatBytes(totalTxBytes))", action: nil, keyEquivalent: "")
         uploadItem.isEnabled = false
@@ -174,8 +175,7 @@ final class StatusBarController: NSObject {
 
         let launchAtLoginItem = NSMenuItem(title: "开机自启动", action: #selector(toggleLaunchAtLogin), keyEquivalent: "")
         launchAtLoginItem.target = self
-        launchAtLoginItem.state = .off
-        launchAtLoginItem.isEnabled = false
+        launchAtLoginItem.state = SMAppService.mainApp.status == .enabled ? .on : .off
         menu.addItem(launchAtLoginItem)
 
         menu.addItem(.separator())
@@ -183,8 +183,6 @@ final class StatusBarController: NSObject {
         let quitItem = NSMenuItem(title: "退出", action: #selector(quit), keyEquivalent: "q")
         quitItem.target = self
         menu.addItem(quitItem)
-
-        statusItem.menu = menu
     }
 
     @objc
@@ -204,7 +202,18 @@ final class StatusBarController: NSObject {
     }
 
     @objc
-    private func toggleLaunchAtLogin() {}
+    private func toggleLaunchAtLogin() {
+        let service = SMAppService.mainApp
+        do {
+            if service.status == .enabled {
+                try service.unregister()
+            } else {
+                try service.register()
+            }
+        } catch {
+            NSLog("Failed to toggle launch at login: \(error)")
+        }
+    }
 
     @objc
     private func quit() {
@@ -221,6 +230,6 @@ final class StatusBarController: NSObject {
 
 extension StatusBarController: NSMenuDelegate {
     func menuWillOpen(_ menu: NSMenu) {
-        rebuildMenu()
+        rebuildMenu(menu)
     }
 }
