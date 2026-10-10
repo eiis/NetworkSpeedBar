@@ -5,11 +5,7 @@ final class StatusBarController: NSObject {
     private let statusItem: NSStatusItem
     private let settings = AppSettings.shared
     private let networkMonitor = NetworkMonitor()
-    private let uploadArrowLabel = NSTextField(labelWithString: "↑")
-    private let uploadLabel = NSTextField(labelWithString: "0 B/s")
-    private let downloadArrowLabel = NSTextField(labelWithString: "↓")
-    private let downloadLabel = NSTextField(labelWithString: "0 B/s")
-    private let speedStackView = NSStackView()
+    private var lastStatusText = ""
     private var preferencesWindowController: PreferencesWindowController?
     private var timer: Timer?
     private var cancellables = Set<AnyCancellable>()
@@ -31,9 +27,8 @@ final class StatusBarController: NSObject {
 
     private func configureStatusItem() {
         guard let button = statusItem.button else { return }
-        button.title = ""
         button.image = nil
-        configureSpeedView(in: button)
+        button.lineBreakMode = .byClipping
         updateStatusLabels(uploadText: "0 B/s", downloadText: "0 B/s")
 
         let menu = NSMenu()
@@ -80,65 +75,23 @@ final class StatusBarController: NSObject {
         updateStatusLabels(uploadText: uploadText, downloadText: downloadText)
     }
 
-    private func configureSpeedView(in button: NSStatusBarButton) {
-        guard speedStackView.superview == nil else { return }
-
-        let font = NSFont.monospacedSystemFont(ofSize: 8, weight: .regular)
-        [uploadLabel, downloadLabel].forEach { label in
-            label.font = font
-            label.alignment = .left
-            label.lineBreakMode = .byClipping
-            label.translatesAutoresizingMaskIntoConstraints = false
-            label.setContentCompressionResistancePriority(.required, for: .horizontal)
-        }
-        [uploadArrowLabel, downloadArrowLabel].forEach { label in
-            label.font = .systemFont(ofSize: 9, weight: .medium)
-            label.alignment = .center
-            label.lineBreakMode = .byClipping
-            label.translatesAutoresizingMaskIntoConstraints = false
-            label.setContentCompressionResistancePriority(.required, for: .horizontal)
-        }
-
-        speedStackView.orientation = .vertical
-        speedStackView.alignment = .leading
-        speedStackView.distribution = .fill
-        speedStackView.spacing = 0
-        speedStackView.translatesAutoresizingMaskIntoConstraints = false
-
-        let uploadRow = makeSpeedRow(arrowLabel: uploadArrowLabel, valueLabel: uploadLabel)
-        let downloadRow = makeSpeedRow(arrowLabel: downloadArrowLabel, valueLabel: downloadLabel)
-
-        speedStackView.addArrangedSubview(uploadRow)
-        speedStackView.addArrangedSubview(downloadRow)
-
-        button.addSubview(speedStackView)
-        NSLayoutConstraint.activate([
-            speedStackView.leadingAnchor.constraint(equalTo: button.leadingAnchor, constant: 6),
-            speedStackView.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: -6),
-            speedStackView.centerYAnchor.constraint(equalTo: button.centerYAnchor)
-        ])
-    }
-
-    private func makeSpeedRow(arrowLabel: NSTextField, valueLabel: NSTextField) -> NSStackView {
-        let row = NSStackView(views: [arrowLabel, valueLabel])
-        row.orientation = .horizontal
-        row.alignment = .centerY
-        row.distribution = .fill
-        row.spacing = 2
-        row.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            arrowLabel.widthAnchor.constraint(equalToConstant: 8),
-            row.heightAnchor.constraint(equalToConstant: 8)
-        ])
-
-        return row
-    }
-
     private func updateStatusLabels(uploadText: String, downloadText: String) {
-        uploadLabel.stringValue = uploadText
-        downloadLabel.stringValue = downloadText
-        statusItem.length = max(ceil(speedStackView.fittingSize.width) + 12, 44)
+        // Only touch the status item when the text actually changes: every
+        // button update makes AppKit re-render the status bar snapshot.
+        let text = "↑ \(uploadText)\n↓ \(downloadText)"
+        guard text != lastStatusText, let button = statusItem.button else { return }
+        lastStatusText = text
+
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = .left
+        paragraph.lineSpacing = 0
+        paragraph.maximumLineHeight = 9
+        paragraph.minimumLineHeight = 9
+        button.attributedTitle = NSAttributedString(string: text, attributes: [
+            .font: NSFont.monospacedSystemFont(ofSize: 8, weight: .regular),
+            .paragraphStyle: paragraph,
+            .baselineOffset: -1
+        ])
     }
 
     private func rebuildMenu() {
